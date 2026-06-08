@@ -1,0 +1,33 @@
+﻿<Window x:Class="TestWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="472" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="250" ></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="145*"></RowDefinition>
+            <RowDefinition Height="200*"></RowDefinition>
+            <RowDefinition Height="89*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Авторизация" FontSize="35" Grid.ColumnSpan="2" Margin="180,30,70,114" Grid.RowSpan="2" FontWeight="Bold" />
+        <Image Grid.Row="0" Grid.Column="1" Source="/2jpg.jpg" Grid.ColumnSpan="2"    />
+        <StackPanel Grid.Column="0" Margin="0,145,0,0" Grid.RowSpan="2" >
+            <Label   Content="Логин" FontSize="25" />
+            <TextBox x:Name="LoginBox" Height="44" FontSize="25" />
+            <Label   Content="Пароль" FontSize="25" />
+            <PasswordBox x:Name="PasswordBox" Height="44" FontSize="25"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+            <Button  x:Name ="ButtonAuth" Content="Войти" Width="150" Margin="10,10,100,10" FontSize="25" Background="#FF12EC47" Click="ButtonAuth_Click"/>
+            <Button  x:Name ="ButtonCatalog" Content="Каталог"  Width="150" Margin="10,10,100,10" FontSize="25" Background="#FF12EC47" Click="ButtonCatalog_Click"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

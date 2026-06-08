@@ -1,0 +1,41 @@
+﻿<Window x:Class="TestWPF.ManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestWPF"
+        mc:Ignorable="d"
+        Title="ManagerWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="117*"/>
+            <ColumnDefinition Width="43*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Column="0">
+            <Label Content="Каталог" FontSize="25" FontWeight="Bold" />
+            <ScrollViewer Grid.Row="0"  Height="800" >
+                <StackPanel x:Name="MainStak" Orientation="Vertical" >
+
+                </StackPanel>
+            </ScrollViewer>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="1">
+            <TextBlock x:Name="UserName" Text="Имя пользователя" FontSize="15" Margin="10,10,10,10"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Поиск" FontSize="15" Margin="10,10,10,10"/>
+                <TextBox TextChanged="SerchBox_TextChanged" x:Name="SerchBox" RenderTransformOrigin="0.5,0.5" Width="162"  Margin="10,10,10,10"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <RadioButton x:Name="SortDescending" Content="По убыванию" Margin="10,10,10,10" Checked="Sort_Checked"/>
+                <RadioButton x:Name="SortAscending" Content="По возрастанию" Margin="10,10,10,10" Checked="Sort_Checked" IsChecked="True"/>
+            </StackPanel>
+            
+            
+            
+            
+            <Button x:Name="ButtonLogout" Content="Выйти"  Click="ButtonLogout_Click"  Background="#FF00ED00"/>
+
+
+        </StackPanel>
+    </Grid>
+</Window>
