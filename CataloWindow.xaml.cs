@@ -156,7 +156,7 @@ namespace TestWPF
                 return;
             }
 
-            // 2. Парсим ID (только один раз, без int.Parse)
+            // 2. Парсим ID
             if (!int.TryParse(IDBox.Text, out int id))
             {
                 MessageBox.Show("ID должен быть числом");
@@ -170,19 +170,31 @@ namespace TestWPF
             if (result != MessageBoxResult.Yes)
                 return;
 
-            // 4. Удаление
             string Connect = @"Data Source=E:\Подготовка к демоэгзамену\TestWPF\Resurce\DB\DBApp.db";
 
             using (var Connection = new SqliteConnection(Connect))
             {
                 Connection.Open();
-                string Request = @"DELETE FROM Products WHERE product_id = @id";
 
+                // 4. ПРОВЕРКА: есть ли товар в заказах?
+                string checkQuery = "SELECT COUNT(*) FROM OrderDetails WHERE product_id = @id";
+                using (var checkCmd = new SqliteCommand(checkQuery, Connection))
+                {
+                    checkCmd.Parameters.AddWithValue("@id", id);
+                    int orderCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                    if (orderCount > 0)
+                    {
+                        MessageBox.Show($"Невозможно удалить товар! Он есть в {orderCount} заказах.");
+                        return;
+                    }
+                }
+
+                // 5. Удаляем товар (только если нет в заказах)
+                string Request = @"DELETE FROM Products WHERE product_id = @id";
                 using (var command = new SqliteCommand(Request, Connection))
                 {
                     command.Parameters.AddWithValue("@id", id);
-
-                  
                     int rowsAffected = command.ExecuteNonQuery();
 
                     if (rowsAffected > 0)
@@ -199,9 +211,9 @@ namespace TestWPF
         }
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)  // ← RoutedEventArgs!
         {
-            int ID = int.Parse(IDBox.Text);
-            EditWindow editWindow = new EditWindow(ID);
-            editWindow.Show();
+            EditWindow editWindow = new EditWindow(int.Parse(IDBox.Text));
+            editWindow.Owner = this;
+            editWindow.ShowDialog(); 
 
         }
         private void ButtonAddProduct_Click(object sender, RoutedEventArgs e)  // ← RoutedEventArgs!
